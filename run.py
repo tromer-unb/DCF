@@ -202,9 +202,9 @@ for config in range(1, num_runs + 1):
 
         if normalized_entropy > 0.8:
             structure = "amorphous (high angular disorder)"
-        elif order_intensity > 0.25:
-            structure = f"ordered with {dominant_order}-fold symmetry"
         elif order_intensity > 0.1:
+            structure = f"ordered with {dominant_order}-fold symmetry"
+        elif order_intensity > 0.05:
             structure = f"quasicrystalline with weak {dominant_order}-fold symmetry"
         else:
             structure = "no significant angular order"
