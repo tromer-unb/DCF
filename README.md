@@ -49,3 +49,19 @@ disorder = 0.0
 replication = 2,2,1
 num_runs = 1
 
+
+---
+
+### 🔍 Resultado visual no GitHub:
+
+📜 Scripts Overview
+
+### `run.py` — Single Structure Simulation
+
+Simulates...
+
+#### ✅ Example: `param.dat`
+
+```ini
+# Simulation parameters for run.py
+...
