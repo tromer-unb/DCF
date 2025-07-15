@@ -64,7 +64,7 @@ fourier_spectrum_angular_config_1.png and .pdf
 
 collisions_2D_config_1.png and .pdf
 
-### run_descriptor.py — Descriptor Generator for Multiple Structures
+###  `run_descriptor.py`— Descriptor Generator for Multiple Structures
 This script runs simulations on multiple CIF files and generates high-level descriptors for each structure.
 It is suitable for dataset generation and use in machine learning or materials informatics.
 
