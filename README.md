@@ -48,7 +48,7 @@ num_launches = 100
 disorder = 0.0
 replication = 2,2,1
 num_runs = 1
-
+---
 ### **`run_descriptor.py` — Descriptor Generator for Multiple Structures**
 
 Simulates multiple CIF structures and generates structural descriptors for dataset creation or ML applications.
