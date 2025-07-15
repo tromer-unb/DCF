@@ -49,19 +49,19 @@ disorder = 0.0
 replication = 2,2,1
 num_runs = 1
 
-# Simulador de Difusividade com Lançamentos de Bola
+# DCF descriptors
 
-Este projeto simula o comportamento de uma "bola" lançada em uma estrutura atômica 2D obtida de arquivos `.cif`, calculando propriedades como caminho livre médio, tempo de relaxação, difusividade, e realizando análise estatística com Gaussian Mixture Models (GMM) e transformadas de Fourier dos ângulos de colisão.
+This project simulates the behavior of a "ball" launched into a 2D atomic structure obtained from .cif files. It calculates properties such as the mean free path, relaxation time, and diffusivity. The simulation also performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier transforms of collision angles.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Files used to obtain descriptors
 
-- `main.py`: Script principal da simulação.
-- `param_desc.dat`: Arquivo com os parâmetros da simulação.
-- `structures/`: Pasta onde você coloca arquivos `.cif`.
-- `descritor.csv`: Saída com os descritores calculados.
-- `fit_<estrutura>.png`: Ajustes Gaussianos para os caminhos livres.
+- `run_descriptor.py`: Main simulation script..
+- `param_desc.dat`: Configuration file with simulation parameters.
+- `structures/`: Folder where you place yours structures `.cif`.
+- `descritor.csv`: Output file containing calculated descriptors.
+- `fit_<estrutura>.png`: Gaussian fit plots of free paths.
 - `examples/`: Exemplos de saída.
 
 ---
