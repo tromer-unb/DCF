@@ -68,6 +68,23 @@ performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier tr
 
 ---
 
+#### ✅ Example: `param.dat`
+
+```ini
+# Simulation parameters for run.py
+cif_file = 1.cif
+ball_diameter = 0.5
+pin_radius = 0.5
+time_step = 0.1
+num_steps = 10000
+temperature = 300
+ball_mass = 1.0
+x0_variation = 6.0
+num_launches = 100
+disorder = 0.0
+replication = 2,2,1
+num_runs = 1
+
 ## ⚙️ Requisitos
 
 Instale os pacotes com:
