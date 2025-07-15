@@ -73,6 +73,8 @@ disorder = 0.0
 # Number of independent simulation runs
 num_runs = 1
 
+# DCF — Descriptor-Based Analysis of Atomic Structures
+
 # DCF descriptors
 
 This project simulates the behavior of a "ball" launched into a 2D atomic structure obtained from .cif files.
