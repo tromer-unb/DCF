@@ -49,3 +49,27 @@ disorder = 0.0
 replication = 2,2,1
 num_runs = 1
 
+# Simulador de Difusividade com Lançamentos de Bola
+
+Este projeto simula o comportamento de uma "bola" lançada em uma estrutura atômica 2D obtida de arquivos `.cif`, calculando propriedades como caminho livre médio, tempo de relaxação, difusividade, e realizando análise estatística com Gaussian Mixture Models (GMM) e transformadas de Fourier dos ângulos de colisão.
+
+---
+
+## 📁 Estrutura do Projeto
+
+- `main.py`: Script principal da simulação.
+- `param_desc.dat`: Arquivo com os parâmetros da simulação.
+- `structures/`: Pasta onde você coloca arquivos `.cif`.
+- `descritor.csv`: Saída com os descritores calculados.
+- `fit_<estrutura>.png`: Ajustes Gaussianos para os caminhos livres.
+- `examples/`: Exemplos de saída.
+
+---
+
+## ⚙️ Requisitos
+
+Instale os pacotes com:
+
+```bash
+pip install -r requirements.txt
+
