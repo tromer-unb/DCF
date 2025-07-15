@@ -73,6 +73,42 @@ performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier tr
 # Simulation parameters for run_descriptor.py
 # Directory containing .cif structures
 structures_path = structures
+
+# Output CSV for all descriptors
+output_descritor_csv = descritor.csv
+
+# Output PNG for Gaussian mixture fit (base name, structure name will be appended)
+output_fit_figure = fit
+
+# Unit cell replication in x, y, z
+replication = 2,2,1
+
+# Ball diameter in angstroms
+ball_diameter = 0.5
+
+# Number of time steps (Nsteps in paper)
+num_steps = 10000
+
+# Number of simulations (launches)
+num_launches = 100
+
+# Time step (ps)
+time_step = 0.1
+
+# Temperature (K)
+temperature = 300
+
+# Ball mass (eV·ps²/Å²)
+ball_mass = 1.0
+
+# Initial x position variation (Å) #variation for initial condition
+x0_variation = 8.0
+
+# Disorder level (0.0 to 1.0)
+disorder = 0.0
+
+
+
 cif_file = 1.cif
 ball_diameter = 0.5
 pin_radius = 0.5
