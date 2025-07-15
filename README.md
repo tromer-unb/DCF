@@ -112,7 +112,7 @@ replication = 2,2,1
 ball_diameter = 0.5
 
 # Number of time steps (Nsteps in paper)
-num_steps = 10000 #(10000 in the paper)
+num_steps = 1000 #(10000 in the paper)
 
 # Number of simulations (launches)
 num_launches = 100
