@@ -60,7 +60,7 @@ performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier tr
 ## 📁 Files used to obtain descriptors
 
 - `run_descriptor.py`: Main simulation script..
-- `param_desc.dat`: Configuration file with simulation parameters.
+- `param_desc.dat`: Configuration file with simulation parameters. Adjust the parameters in the param_desc.dat file.
 - `structures/`: Folder where you place yours structures `.cif`.
 - `descritor.csv`: Output file containing calculated descriptors.
 - `fit_<estrutura>.png`: Gaussian fit plots of free paths.
