@@ -65,7 +65,8 @@ fourier_spectrum_angular_config_1.png and .pdf
 collisions_2D_config_1.png and .pdf
 
 run_descriptor.py — Descriptor Generator for Multiple Structures
-This script runs simulations on multiple CIF files and generates high-level descriptors for each structure. It is suitable for dataset generation and use in machine learning or materials informatics.
+This script runs simulations on multiple CIF files and generates high-level descriptors for each structure.
+It is suitable for dataset generation and use in machine learning or materials informatics.
 
 🔧 Inputs
 A folder containing .cif files (e.g., structures/)
@@ -73,9 +74,7 @@ A folder containing .cif files (e.g., structures/)
 A parameter file named param_desc.dat
 
 ✅ param_desc.dat (for run_descriptor.py)
-ini
-Copiar
-Editar
+
 # Simulation parameters for run_descriptor.py
 structures_path = structures
 output_descritor_csv = descritor.csv
@@ -89,7 +88,7 @@ x0_variation = 6.0
 num_launches = 100
 disorder = 0.0
 replication = 2,2,1
-All .cif files in the folder specified by structures_path will be processed in alphabetical order.
+All .cif files in the folder specified by structures_path will be processed in numerical/alphabetical order.
 
 📤 Outputs
 descritor.csv: one row per structure with the following descriptors:
@@ -109,14 +108,8 @@ One figure per structure, named fit_<structure>.png
 ⚙️ Requirements
 Install the required Python libraries with:
 
-bash
-Copiar
-Editar
 pip install -r requirements.txt
 ✅ requirements.txt
-txt
-Copiar
-Editar
 numpy
 pandas
 scipy
