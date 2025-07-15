@@ -67,10 +67,12 @@ performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier tr
 
 ---
 
-#### ✅ Example: `param.dat`
+#### ✅ Example: `param_desc.dat`
 
 ```ini
-# Simulation parameters for run.py
+# Simulation parameters for run_descriptor.py
+# Directory containing .cif structures
+structures_path = structures
 cif_file = 1.cif
 ball_diameter = 0.5
 pin_radius = 0.5
