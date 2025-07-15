@@ -132,6 +132,20 @@ x0_variation = 8.0
 # Disorder level (0.0 to 1.0)
 disorder = 0.0
 
+```
+
+ # ====== Atomic radii (relative to carbon) ======
+atomic_radii = {
+    'H': 0.31, 'He': 0.28, 'Li': 1.28, 'Be': 0.96, 'B': 0.84,
+    'C': 0.76, 'N': 0.71, 'O': 0.66, 'F': 0.57, 'Ne': 0.58,
+}
+
+This dictionary defines the atomic radii for selected elements, relative 
+to carbon (C = 0.76). These values are used to estimate the size of atoms in the structure
+and determine collision detection during the simulation. Before running the simulation,
+make sure that all atomic species in your .cif files are listed in the atomic_radii dictionary.
+If a given element is not included, the simulation will default to using the carbon radius.
+
 
 ## ⚙️ Requirements
 
