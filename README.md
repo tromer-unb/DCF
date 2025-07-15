@@ -35,7 +35,6 @@ This script simulates particle trajectories through a periodic atomic structure 
 
 ### ✅ `param.dat` (for `run.py`)
 
-```ini
 # Simulation parameters for run.py
 cif_file = 1.cif
 ball_diameter = 0.5
