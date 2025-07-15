@@ -49,16 +49,3 @@ disorder = 0.0
 replication = 2,2,1
 num_runs = 1
 
-#### Example
-
-
-
-
----
-
-### 💡 Instruções:
-
-- Copie e cole esse trecho direto no seu `README.md`.
-- Verifique se **há uma linha em branco antes e depois** desse bloco, para garantir que o Markdown seja interpretado corretamente.
-- Se for colar dentro de uma seção maior, mantenha a hierarquia dos títulos (ex: use `###` em vez de `####` se for o caso).
-
