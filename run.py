@@ -2,31 +2,52 @@ from ase.io import read
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import ast
 
-# ====== GENERAL CONFIGURATION ======
-cif_file = "1.cif"
-ball_diameter = 0.3
-ball_radius = ball_diameter / 2
-time_step = 0.1
-num_steps = 1000
-temperature = 300  # Kelvin
-ball_mass = 1.0  # eV·ps²/Å²
-x0_variation = 6.0
-num_launches = 600
-disorder = 0.0
-replication = (2, 2, 1)
-num_runs = 1
+# ====== Function to load parameters from "param.dat" ======
+def load_params(filename="param.dat"):
+    params = {}
+    with open(filename, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            try:
+                params[key] = ast.literal_eval(value)
+            except:
+                params[key] = value
+    return params
 
-# ====== CONSTANTS ======
-kB = 8.617333262145e-5  # eV/K
+# ====== Load parameters ======
+params = load_params("param.dat")
+
+cif_file = params["cif_file"]                      # CIF file with atomic structure
+ball_diameter = params["ball_diameter"]            # Ball diameter (Å)
+ball_radius = ball_diameter / 2                    # Ball radius (Å)
+pin_radius = params["pin_radius"]                  # Base pin radius (Å)
+time_step = params["time_step"]                    # Simulation time step (ps)
+num_steps = params["num_steps"]                    # Number of time steps per launch
+temperature = params["temperature"]                # Temperature (K)
+ball_mass = params["ball_mass"]                    # Ball mass (eV·ps²/Å²)
+x0_variation = params["x0_variation"]              # Initial x-position variation (Å)
+num_launches = params["num_launches"]              # Number of launches per configuration
+disorder = params["disorder"]                      # Disorder level (0.0 = no pins removed, 1.0 = all removed)
+replication = tuple(params["replication"])         # Cell replication factors (Nx, Ny, Nz)
+num_runs = params["num_runs"]                      # Number of simulation runs (configurations)
+
+# ====== Constants ======
+kB = 8.617333262145e-5                              # Boltzmann constant (eV/K)
 thermal_velocity = np.sqrt(2 * kB * temperature / ball_mass)
-gravity_acceleration = -0.0
+gravity_acceleration = -0.0                        # Optional gravitational acceleration
 
-# ====== ATOMIC RADII RELATIVE TO CARBON ======
+# ====== Atomic radii relative to carbon ======
 atomic_radii = {
     'H': 0.31, 'He': 0.28, 'Li': 1.28, 'Be': 0.96, 'B': 0.84,
     'C': 0.76, 'N': 0.71, 'O': 0.66, 'F': 0.57, 'Ne': 0.58,
-    # ... add more elements as needed ...
+    # Add more elements as needed...
 }
 carbon_radius = atomic_radii['C']
 
@@ -41,7 +62,7 @@ for config in range(1, num_runs + 1):
     pin_positions = atoms_replicated.get_positions()[:, :2]
     symbols = atoms_replicated.get_chemical_symbols()
 
-    pin_radii = [atomic_radii.get(s, carbon_radius) / carbon_radius * 0.6 for s in symbols]
+    pin_radii = [atomic_radii.get(s, carbon_radius) / carbon_radius * pin_radius for s in symbols]
     pin_radii = np.array(pin_radii)
 
     if disorder > 0.0:
@@ -112,17 +133,13 @@ for config in range(1, num_runs + 1):
         while True:
             x0 = x0_base + np.random.uniform(-x0_variation, x0_variation)
             result = simulate_collisions(x0)
-
             attempts += 1
             if attempts > 100:
                 break
-
             if result is not None:
                 traj, collisions, angles = result
-
                 if len(collisions) == 0:
                     continue
-
                 if len(collisions) >= 2:
                     for j in range(1, len(collisions)):
                         delta = collisions[j] - collisions[j - 1]
@@ -130,7 +147,6 @@ for config in range(1, num_runs + 1):
                         frac_delta = (frac_delta + np.array([Nx / 2, Ny / 2])) % [Nx, Ny] - np.array([Nx / 2, Ny / 2])
                         corrected_delta = cell.T @ frac_delta
                         d = np.linalg.norm(corrected_delta)
-
                         if d < 2 * (0.6 + ball_radius) * 5:
                             all_free_paths.append(d)
                             relax_time = d / thermal_velocity
@@ -148,35 +164,38 @@ for config in range(1, num_runs + 1):
         print(f"Configuration {config}: λ = {mean_path:.3f} Å | τ = {mean_time:.3f} ps | D = {D:.5f} Å²/ps")
         output.write(f"Configuration {config}: λ = {mean_path:.3f} Å | τ = {mean_time:.3f} ps | D = {D:.5f} Å²/ps\n")
 
-        plt.figure(figsize=(10, 10), dpi=300)
+        # Histogram of free paths
+        plt.figure(figsize=(10, 6), dpi=300)
         plt.hist(all_free_paths, bins=15, color='skyblue', edgecolor='black')
         plt.xlabel("Distance between collisions (Å)", fontsize=18)
         plt.ylabel("Frequency", fontsize=18)
-        plt.title(f"Free Path", fontsize=18)
+        plt.title("Free Path", fontsize=18)
         plt.xticks(fontsize=18)
-        plt.yticks(np.arange(0, plt.ylim()[1]+1, 1000),fontsize=18)
-        plt.grid(True)        
+        plt.yticks(np.arange(0, plt.ylim()[1]+1, 1000), fontsize=18)
+        plt.grid(True)
         plt.tight_layout()
         plt.savefig(f"histogram_paths_config_{config}.png")
         plt.close()
 
+        # Histogram of relaxation times
         plt.figure(figsize=(10, 6), dpi=300)
         plt.hist(relaxation_times, bins=15, color='salmon', edgecolor='black')
-        plt.xlabel("Time between collisions (ps)", fontsize=14)
-        plt.ylabel("Frequency", fontsize=14)
-        plt.title(f"Histogram - Relaxation Time - Config {config}", fontsize=16)
-        plt.xticks(fontsize=16)
-        plt.yticks(fontsize=16)
+        plt.xlabel("Time between collisions (ps)", fontsize=18)
+        plt.ylabel("Frequency", fontsize=18)
+        plt.title("Relaxation Time", fontsize=18)
+        plt.xticks(fontsize=18)
+        plt.yticks(fontsize=18)
         plt.grid(True)
         plt.tight_layout()
         plt.savefig(f"histogram_times_config_{config}.png")
         plt.close()
 
+        # Histogram of collision angles
         plt.figure(figsize=(10, 6), dpi=300)
         plt.hist(all_angles, bins=18, range=(-180, 180), color='lightgreen', edgecolor='black')
         plt.xlabel("Collision angle (degrees)", fontsize=14)
         plt.ylabel("Frequency", fontsize=14)
-        plt.title(f"Histogram - Collision Angle", fontsize=16)
+        plt.title("Histogram - Collision Angle", fontsize=16)
         plt.xticks(fontsize=16)
         plt.yticks(fontsize=16)
         plt.grid(True)
@@ -184,6 +203,7 @@ for config in range(1, num_runs + 1):
         plt.savefig(f"histogram_angles_config_{config}.png")
         plt.close()
 
+        # Angular order analysis
         hist_angles, _ = np.histogram(all_angles, bins=18, range=(-180, 180), density=True)
         p_angles = hist_angles + 1e-12
         entropy = -np.sum(p_angles * np.log(p_angles))
@@ -202,9 +222,9 @@ for config in range(1, num_runs + 1):
 
         if normalized_entropy > 0.8:
             structure = "amorphous (high angular disorder)"
-        elif order_intensity > 0.1:
+        elif order_intensity > 0.25:
             structure = f"ordered with {dominant_order}-fold symmetry"
-        elif order_intensity > 0.05:
+        elif order_intensity > 0.1:
             structure = f"quasicrystalline with weak {dominant_order}-fold symmetry"
         else:
             structure = "no significant angular order"
@@ -212,33 +232,37 @@ for config in range(1, num_runs + 1):
         output.write(f"    Structure: {structure}\n")
         print(f"    Structure: {structure}")
 
-        plt.figure(figsize=(10, 10), dpi=300)
+        # Plot angular order spectrum
+        plt.figure(figsize=(10, 6), dpi=300)
         modes = np.arange(len(fft_magnitudes))
         plt.stem(modes[1:10], fft_magnitudes[1:10], basefmt=" ", linefmt='C0-', markerfmt='C0o')
         plt.xlabel("Rotational mode (n-fold)", fontsize=18)
         plt.ylabel("Intensity (|FFT|)", fontsize=18)
-        plt.title(f"Angular Order Spectrum", fontsize=18)
+        plt.title("Angular Order Spectrum", fontsize=18)
         plt.xticks(fontsize=18)
         plt.yticks(fontsize=18)
         plt.grid(True)
         plt.tight_layout()
         plt.savefig(f"fourier_spectrum_angular_config_{config}.png")
+        plt.savefig(f"fourier_spectrum_angular_config_{config}.pdf")
         plt.close()
 
+        # Plot 2D collisions
         if total_collisions:
             collisions_xy = np.array(total_collisions)
-            plt.figure(figsize=(8, 8), dpi=300)
+            plt.figure(figsize=(15, 10), dpi=300)
             plt.scatter(collisions_xy[:, 0], collisions_xy[:, 1], s=20, color='blue', alpha=0.6, label='Collisions')
-            plt.scatter(pin_positions[:, 0], pin_positions[:, 1], s=25, color='red', alpha=0.4, label='Pins')
-            plt.xlabel("x (Å)", fontsize=18)
-            plt.ylabel("y (Å)", fontsize=18)
-            plt.title(f"Graphene", fontsize=16)
-            plt.xticks(fontsize=18)
-            plt.yticks(fontsize=18)
-            plt.legend(fontsize=18)
+            plt.scatter(pin_positions[:, 0], pin_positions[:, 1], s=25, color='red', alpha=0.6, label='Pins')
+            plt.xlabel("x (Å)", fontsize=26)
+            plt.ylabel("y (Å)", fontsize=26)
+            plt.title("Graphene", fontsize=26)
+            plt.xticks(fontsize=26)
+            plt.yticks(fontsize=26)
+            plt.legend(fontsize=26)
             plt.axis("equal")
             plt.grid(True)
             plt.tight_layout()
+            plt.savefig(f"collisions_2D_config_{config}.pdf")
             plt.savefig(f"collisions_2D_config_{config}.png")
             plt.close()
 
