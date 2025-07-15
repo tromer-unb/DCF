@@ -76,8 +76,6 @@ num_runs = 1
 mardown
 # **DCF** — Descriptor-Based Analysis of Atomic Structures
 
-# DCF descriptors
-
 This project simulates the behavior of a "ball" launched into a 2D atomic structure obtained from .cif files.
 It calculates properties such as the mean free path, relaxation time, and diffusivity. The simulation also
 performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier transforms of collision angles.
