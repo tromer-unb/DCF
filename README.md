@@ -36,7 +36,7 @@ Simulates particle trajectories in a periodic atomic structure defined by `1.cif
 
 ```ini
 # Simulation parameters for run.py
-cif_file = 1.cif
+
 # Name of the CIF file to load
 cif_file = 1.cif
 
@@ -71,18 +71,6 @@ x0_variation = 8.0
 disorder = 0.0
 
 # Number of independent simulation runs
-num_runs = 1
-
-ball_diameter = 0.5
-pin_radius = 0.5
-time_step = 0.1
-num_steps = 1000 #(10000 used in article)
-temperature = 300
-ball_mass = 1.0
-x0_variation = 8.0
-num_launches = 100
-disorder = 0.0
-replication = 2,2,1
 num_runs = 1
 
 # DCF descriptors
