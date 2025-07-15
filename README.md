@@ -49,5 +49,4 @@ disorder = 0.0
 replication = 2,2,1
 num_runs = 1
 
-### ✅ Example: `param.dat`
-
+#### ✅ Example: `param.dat`
