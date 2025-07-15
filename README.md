@@ -37,6 +37,42 @@ Simulates particle trajectories in a periodic atomic structure defined by `1.cif
 ```ini
 # Simulation parameters for run.py
 cif_file = 1.cif
+# Name of the CIF file to load
+cif_file = 1.cif
+
+# Replication factors for the unit cell (Nx, Ny, Nz)
+replication = 2,2,1
+
+# Number of steps per simulation run (Nstep in paper)
+num_steps = 10000
+
+# Number of launches per configuration
+num_launches = 100
+
+# Diameter of the ball (in angstroms)
+ball_diameter = 0.5
+
+# Radius of the pins (in angstroms), scaled relative to carbon
+pin_radius = 0.5
+
+# Time step for the simulation (in picoseconds)
+time_step = 0.1
+
+# Temperature of the system (in Kelvin)
+temperature = 300
+
+# Mass of the ball (in eV·ps²/Å²)
+ball_mass = 1.0
+
+# Range of initial horizontal position variation (in angstroms)
+x0_variation = 8.0
+
+# Fraction of pins to randomly remove (disorder level)
+disorder = 0.0
+
+# Number of independent simulation runs
+num_runs = 1
+
 ball_diameter = 0.5
 pin_radius = 0.5
 time_step = 0.1
