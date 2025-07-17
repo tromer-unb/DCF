@@ -134,7 +134,7 @@ disorder = 0.0
 
 ```
 
- # ====== Atomic radii (relative to carbon) ======
+ # ====== Atomic radii ======
 atomic_radii = {
     'H': 0.31, 'He': 0.28, 'Li': 1.28, 'Be': 0.96, 'B': 0.84,
     'C': 0.76, 'N': 0.71, 'O': 0.66, 'F': 0.57, 'Ne': 0.58,
