@@ -111,6 +111,9 @@ replication = 2,2,1
 # Ball diameter in angstroms
 ball_diameter = 0.5
 
+# Pin radius in angstroms
+pin_radius = 0.5
+
 # Number of time steps (Nsteps in paper)
 num_steps = 1000 #(10000 in the paper)
 
