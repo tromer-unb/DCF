@@ -65,7 +65,7 @@ temperature = 300
 ball_mass = 1.0
 
 # Range of initial horizontal position variation (in angstroms)
-x0_variation = 8.0
+x0_variation = 6.0
 
 # Fraction of pins to randomly remove (disorder level)
 disorder = 0.0
@@ -130,7 +130,7 @@ temperature = 300
 ball_mass = 1.0
 
 # Initial x position variation (Å) #variation for initial condition
-x0_variation = 8.0
+x0_variation = 6.0
 
 # Disorder level (0.0 to 1.0)
 disorder = 0.0
