@@ -86,7 +86,8 @@ performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier tr
 
 - `run_descriptor.py`: Main simulation script..
 - `param_desc.dat`: Configuration file with simulation parameters. 
-- `structures/`: Folder where you place yours structures `.cif`.
+- `structures/`: Directory where you place your `.cif` structures.  
+  > **Note:** The script will collect all `.cif` files in this directory and, if they are named with leading numbers (e.g. `1.cif`, `2.cif`, `3.cif`), it will process them in ascending numeric order. Otherwise, it will fall back to the default lexicographical order of the file system. 
 - `descritor.csv`: Output file containing calculated descriptors.
 - `fit_<structure>.png`: Gaussian fit plots of free paths (output for each structure).
 
