@@ -101,7 +101,7 @@ performs statistical analysis using Gaussian Mixture Models (GMM) and Fourier tr
 structures_path = structures
 
 # Output CSV for all descriptors
-output_descritor_csv = descritor.csv
+output_descritor_csv = descriptor.csv
 
 # Output PNG for Gaussian mixture fit (base name, structure name will be appended)
 output_fit_figure = fit
